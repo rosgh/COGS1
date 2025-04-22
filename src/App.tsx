@@ -39,7 +39,7 @@ function App() {
   };
 
   const handleChange = (item: any, field: string, value: any) => {
-    const key = `${selectedMonth}_${selectedCategory}_${item.품목명}`;
+    const key = `${selectedMonth}_${selectedCategory}_${item?.품목명 || 'Unknown'}`;
     const prev = data[key] || {
       기초수량: 0, 기초단가: 0,
       입고: [],
