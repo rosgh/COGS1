@@ -1,26 +1,31 @@
-import React, { useState } from "react";
-import MonthTabs from "./components/MonthTabs";
-import CategoryTabs from "./components/CategoryTabs";
-import FileUpload from "./components/FileUpload";
-import DataTable from "./components/DataTable";
-import SummaryTable from "./components/SummaryTable";
-import SaveButton from "./components/SaveButton";
+import React, { useState } from 'react';
+import MonthTabs from './components/MonthTabs';
+import CategoryTabs from './components/CategoryTabs';
+import ItemTable from './components/ItemTable';
+import UploadSection from './components/UploadSection';
+import SummaryTab from './components/SummaryTab';
+import './index.css';
 
-function App() {
-  const [month, setMonth] = useState("4월");
-  const [category, setCategory] = useState("집계");
-  const [items, setItems] = useState({});
+export default function App() {
+  const [month, setMonth] = useState('4월');
+  const [category, setCategory] = useState('집계');
+  const [data, setData] = useState({});
 
   return (
-    <div className="p-4 space-y-4 max-w-screen-xl mx-auto">
-      <MonthTabs current={month} onChange={setMonth} />
-      <CategoryTabs current={category} onChange={setCategory} />
-      <FileUpload setItems={setItems} category={category} />
-      <DataTable month={month} category={category} items={items} setItems={setItems} />
-      <SummaryTable category={category} items={items} />
-      <SaveButton data={items} />
+    <div className="p-4">
+      <MonthTabs month={month} setMonth={setMonth} />
+      <CategoryTabs category={category} setCategory={setCategory} />
+      <UploadSection setData={setData} />
+      {category === '집계' ? (
+        <SummaryTab data={data} />
+      ) : (
+        <ItemTable
+          month={month}
+          category={category}
+          data={data}
+          setData={setData}
+        />
+      )}
     </div>
   );
 }
-
-export default App;
